@@ -30,6 +30,8 @@ MATLAB 2014b+
 
 MATLAB 2018a+ (Graphic interface)
 
+MATLAB "Curve Fitting" Toolbox
+
 Windows OS 7+
 
 ## Install ##
