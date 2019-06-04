@@ -1,7 +1,7 @@
 % ACsN   Automatic Correction of sCMOS-related Noise
 %
 % SYNOPSIS:
-%   [img, sigma, elapsedTime] = ACSN(I,NA,Lambda,PixelSize,PropertyName,PropertyValue)
+%   [img, Qscore,elapsedTime, sigma] = ACSN(I,NA,Lambda,PixelSize,PropertyName,PropertyValue)
 %
 % INPUTS:
 %   I
@@ -32,6 +32,8 @@
 % OUTPUTS:
 %   img
 %       Denoised image
+%   Qscore
+%       Image quality score
 %   sigma
 %       estimated noise variation
 %   elapsedTime
@@ -50,6 +52,8 @@ function [img, varargout] = ACSN(I,NA,Lambda,PixelSize,varargin) %#ok<INUSD>
 timerVal = tic;
 img = zeros(size(I));
 sigma = zeros(size(I,3),1);
+Qscore = zeros(size(I,3),1);
+Qmap = zeros(size(I));
 ACSN_initialization;
 
 %% main theme
@@ -68,10 +72,22 @@ end
 elapsedTime = toc(timerVal);
 fprintf('\nElapsed time:')
 disp(elapsedTime);
-fprintf('Sigma average:')
-disp(mean(sigma(:))); 
+fprintf('Average Quality: ')
+Av_qI  = mean(Qscore(:));
+if Av_qI >= 0.6
+    cprintf([0,0.5,0],[num2str(Av_qI) '\n\n']);
+elseif abs(Av_qI - 0.5) < 0.1
+    cprintf([0.75,0.5,0],[num2str(Av_qI) '\n\n']);
+else
+    cprintf([0.75,0,0],[num2str(Av_qI) '\n\n']);
+end
+ 
+if QM(1)=='y'
+out = {Qmap,Qscore,elapsedTime,sigma};
+else
+    out = {Qscore,elapsedTime,sigma};
+end
 
-out = {sigma,elapsedTime};
 
 for idx = 1:(nargout-1)
     varargout{idx} = out{idx}; %#ok<AGROW>
