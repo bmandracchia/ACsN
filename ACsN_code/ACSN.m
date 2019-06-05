@@ -25,8 +25,6 @@
 %           0 | 1 (default)
 %       Mode
 %           'Normal' (default) | 'Parallel'
-%       SaveFileName
-%           User specified name (the default file name is 'ACSN_<starting date and time>.tiff')
 %
 %
 % OUTPUTS:
