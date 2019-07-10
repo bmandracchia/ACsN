@@ -11,7 +11,7 @@ PxSize = .065;
 %%
 input1 = double(loadtiff('TIRF_9Hz.tif'));
 
-acsn_009  = ACSN(input1,NA,Lambda,PxSize,'Offset',offset,'Gain',gain,'Mode','Parallel'); 
+acsn_009  = ACSN(input1,NA,Lambda,PxSize,'Offset',offset,'Gain',gain,'Mode','Fast'); 
 % The first time the runtime can be longer if the parallel pool is not already active
 
 figure;
@@ -28,10 +28,10 @@ title('TIRF image of HeLa microtubules recorded at 9 Hz - pixel fluctuation');
 %%
 input2 = double(loadtiff('TIRF_100Hz.tif'));
 
-acsn_100  = ACSN(input2,NA,Lambda,PxSize,'Offset',offset,'Gain',gain,'Mode','Parallel'); 
+acsn_100  = ACSN(input2,NA,Lambda,PxSize,'Offset',offset,'Gain',gain,'Mode','Slow'); 
 
 figure; 
-imagesc(imfuse(input2(:,:,1),acsn_100(:,:,1),'montage'));
+imagesc(imfuse(input2(:,:,100),acsn_100(:,:,100),'montage'));
 colormap(blow); axis off; axis image;
 title('TIRF image of HeLa microtubules recorded at 100 Hz');
 
@@ -43,10 +43,10 @@ title('TIRF image of HeLa microtubules recorded at 100 Hz - pixel fluctuation');
 %%
 input3 = double(loadtiff('TIRF_200Hz.tif'));
 
-acsn_200  = ACSN(input3,NA,Lambda,PxSize,'Offset',offset,'Gain',gain,'Mode','Parallel'); 
+acsn_200  = ACSN(input3,NA,Lambda,PxSize,'Offset',offset,'Gain',gain,'Mode','Fast'); 
 
 figure; 
-imagesc(imfuse(input3(:,:,9),acsn_200(:,:,9),'montage'));
+imagesc(imfuse(input3(:,:,1),acsn_200(:,:,1),'montage'));
 colormap(blow); axis off; axis image;
 title('TIRF image of HeLa microtubules recorded at 200 Hz');
 

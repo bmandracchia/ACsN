@@ -24,7 +24,9 @@
 %       Hotspot    (hotspot removal)
 %           0 | 1 (default)
 %       Mode
-%           'Normal' (default) | 'Parallel'
+%           'Normal' (default) | 'Fast' | 'Slow'
+%       Window (active only in Slow mode)
+%           32 (default)| 32-256
 %
 %
 % OUTPUTS:
@@ -49,15 +51,17 @@ function [img, varargout] = ACSN(I,NA,Lambda,PixelSize,varargin) %#ok<INUSD>
 %% ouverture
 timerVal = tic;
 img = zeros(size(I));
-sigma = zeros(size(I,3),1);
 Qscore = zeros(size(I,3),1);
+sigma = [];
 Qmap = zeros(size(I));
 ACSN_initialization;
 
 %% main theme
 
-if strcmp(Mode,'Parallel')
+if strcmp(Mode,'Fast')
     ACSN_processing_parallel;
+elseif strcmp(Mode,'Slow')
+    ACSN_processing_parallel2;
 elseif size(I,3)>1
     ACSN_processing_video;
 else
@@ -79,13 +83,8 @@ elseif abs(Av_qI - 0.5) < 0.1
 else
     cprintf([0.75,0,0],[num2str(Av_qI) '\n\n']);
 end
- 
-if QM(1)=='y'
-out = {Qmap,Qscore,elapsedTime,sigma};
-else
-    out = {Qscore,elapsedTime,sigma};
-end
 
+out = {Qscore,elapsedTime,sigma};
 
 for idx = 1:(nargout-1)
     varargout{idx} = out{idx}; %#ok<AGROW>
