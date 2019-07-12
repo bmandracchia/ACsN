@@ -3,9 +3,10 @@ PoolStart;
 
 disp('Processing...');
 
+
 parfor frame = 1:size(I,3)
     
-    [img(:,:,frame), sigma(frame,:),I1(:,:,frame)] = ACSN_core2(I(:,:,frame),NA,Lambda,PixelSize,Gain,Offset,Window,Hotspot,Level,Mode,SaveFileName);
+    [img(:,:,frame), sigma(frame),I1(:,:,frame)] = ACSN_core(I(:,:,frame),NA,Lambda,PixelSize,Gain,Offset,Hotspot,Level,Mode,SaveFileName);
     
     
 end
@@ -13,36 +14,32 @@ end
 
 if Video(1) ~= 'n'
     
-    nf = 5;
-    check = zeros(1,size(img,3)-nf);
+    check = zeros(1,size(img,3)-4);
     
     if Video(1) ~= 'y'
-        for ii = 1:size(img,3)-nf
-            check(ii) = psnr(img(:,:,ii),mean(img(:,:,ii:ii+nf),3),max(max(img(:,:,ii))));
+        for ii = 1:size(img,3)-4
+            check(ii) = psnr(img(:,:,ii),mean(img(:,:,ii:ii+4),3),max(max(img(:,:,ii))));
         end
     end
     
     check = mean(check);
     %     disp(check);
     
-    if check < 35 || Video(1) == 'y'
+    if check < 30 || Video(1) == 'y'
         disp('Please wait... Additional 3D denoising required')
+        psd = mean(sigma).*ones(8);
         
         sType = 2;
         
-        if sum(size(img)>[32 32 20])  % [256 256 20]
+        if sum(size(img)>[256 256 20])  % [256 256 20]
             
-            size_y = min(Window,size(img,1));
-            size_x = min(Window,size(img,2));
+            size_y = min(200,size(img,1));
+            size_x = min(200,size(img,2));
             size_z = min(100,size(img,3));
             
             Tiles = im2tiles(img,size_x,size_y,size_z);
             parfor idx = 1:numel(Tiles)
-                
-                psd = mean(sigma(:,idx)).*ones(8);
-                
                 Tiles{idx} = Video_filtering(Tiles{idx},psd,psd,'dct',0,1,sType,'np',0);
-                
             end
             img = cell2mat(Tiles);
             clear Tiles;
@@ -52,15 +49,15 @@ if Video(1) ~= 'n'
             img = Video_filtering(img,psd,psd,'dct',0,1,sType,'np',0);
             
         end
+        
+        disp('Wrapping up...');
+        
+        parfor i = 1:size(img,3)
+            img(:,:,i) = Wrapping_up(img(:,:,i),sigma(i));
+        end
     end
 end
 
-
-disp('Wrapping up...');
-
-parfor i = 1:size(img,3)
-    img(:,:,i) = Wrapping_up2(img(:,:,i),sigma(i,:),alpha); % experimental feature non active by default
-end
 
 
 parfor i = 1:size(img,3)
@@ -70,8 +67,6 @@ parfor i = 1:size(img,3)
     end
 end
 
-
 clear I1
-
 
 disp('Done!');

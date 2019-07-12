@@ -53,7 +53,7 @@ timerVal = tic;
 img = zeros(size(I));
 Qscore = zeros(size(I,3),1);
 sigma = [];
-Qmap = zeros(size(I)); %#ok<NASGU>
+Qmap = zeros(size(I));
 ACSN_initialization;
 
 %% main theme

@@ -13,19 +13,18 @@ end
 
 if Video(1) ~= 'n'
     
-    nf = 5;
-    check = zeros(1,size(img,3)-nf);
+    check = zeros(1,size(img,3)-4);
     
     if Video(1) ~= 'y'
-        for ii = 1:size(img,3)-nf
-            check(ii) = psnr(img(:,:,ii),mean(img(:,:,ii:ii+nf),3),max(max(img(:,:,ii))));
+        for ii = 1:size(img,3)-4
+            check(ii) = psnr(img(:,:,ii),mean(img(:,:,ii:ii+4),3),max(max(img(:,:,ii))));
         end
     end
     
     check = mean(check);
     %     disp(check);
     
-    if check < 35 || Video(1) == 'y'
+    if check < 30 || Video(1) == 'y'
         disp('Please wait... Additional 3D denoising required')
         
         sType = 2;

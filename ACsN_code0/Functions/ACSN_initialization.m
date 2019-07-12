@@ -11,7 +11,7 @@ if ischar(I)
 end
 
 % Default parameters
-default = {1,1,1,0,'Fast',[ 'ACSN_' datestr(now,'yyyymmdd_HHMMSS') '.tif'],'auto',64,0.5,'no'};
+default = {1,1,1,0,'Fast',[ 'ACSN_' datestr(now,'yyyymmdd_HHMMSS') '.tif'],'auto',64,1,'no'};
 
 Gain = default{1};
 Offset = default{2};
@@ -48,7 +48,7 @@ for idx = 1:2:length(varargin)
         case 'Alpha'
             alpha = varargin{idx+1};
             alpha = max(0.1,alpha);
-            
+            alpha = min(1,alpha);
         case 'QualityMap'
             QM = varargin{idx+1};
     end

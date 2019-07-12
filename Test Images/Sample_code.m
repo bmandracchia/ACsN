@@ -9,32 +9,20 @@ Lambda = .680;
 PxSize = .065;
 
 %%
-input1 = double(loadtiff('TIRF_01_100Hz.tif'));
+raw = double(loadtiff('TIRF_02_200Hz.tif'));
 
-acsn_100  = ACSN(input1,NA,Lambda,PxSize,'Offset',offset,'Gain',gain,'Mode','Bright'); 
+acsn  = ACSN(raw,NA,Lambda,PxSize,'Offset',offset,'Gain',gain); 
 % The first time the runtime can be longer if the parallel pool is not already active
 
-figure; 
-imagesc(imfuse(input1(:,:,100),acsn_100(:,:,100),'montage'));
-colormap(blow); axis off; axis image;
-title('TIRF image of HeLa microtubules recorded at 100 Hz');
-
-figure;
-imagesc(imfuse(std(input1,[],3),std(acsn_100,[],3),'montage','Scaling','joint'));
-colormap(jet); axis off; axis image;
-title('TIRF image of HeLa microtubules recorded at 100 Hz - pixel fluctuation');
-
 %%
-input2 = double(loadtiff('TIRF_01_200Hz.tif'));
-
-acsn_200  = ACSN(input2,NA,Lambda,PxSize,'Offset',offset,'Gain',gain); 
+figure;
+imagesc(imfuse(std(raw,[],3),std(acsn,[],3),'montage','Scaling','joint'));
+colormap(jet); axis off; axis image;
+title('TIRF image of HeLa microtubules - pixel fluctuation');
 
 figure; 
-imagesc(imfuse(input2(:,:,1),acsn_200(:,:,1),'montage'));
+imagesc(imfuse(raw(:,:,1),acsn(:,:,1),'montage'));
 colormap(blow); axis off; axis image;
-title('TIRF image of HeLa microtubules recorded at 200 Hz');
+title('TIRF image of HeLa microtubules');
 
-figure;
-imagesc(imfuse(std(input2,[],3),std(acsn_200,[],3),'montage','Scaling','joint'));
-colormap(jet); axis off; axis image;
-title('TIRF image of HeLa microtubules recorded at 200 Hz - pixel fluctuation');
+
