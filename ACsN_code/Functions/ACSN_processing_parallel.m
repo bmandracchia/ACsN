@@ -29,11 +29,7 @@ if Video(1) ~= 'n'
         disp('Please wait... Additional 3D denoising required')
         psd = mean(sigma).*ones(8);
         
-        if strcmp(Search,'Full')
-            sType = 2;
-        else
-            sType = 3;
-        end
+        sType = 2;
         
         if sum(size(img)>[256 256 20])  % [256 256 20]
             
@@ -57,9 +53,7 @@ if Video(1) ~= 'n'
         disp('Wrapping up...');
         
         parfor i = 1:size(img,3)
-            %             disp(i)
             img(:,:,i) = Wrapping_up(img(:,:,i),sigma(i));
-            
         end
     end
 end

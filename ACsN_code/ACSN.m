@@ -24,9 +24,9 @@
 %       Hotspot    (hotspot removal)
 %           0 | 1 (default)
 %       Mode
-%           'Normal' (default) | 'Fast' | 'Slow'
-%       Window (active only in Slow mode)
-%           32 (default)| 32-256
+%           'Normal' | 'Fast' (default) | 'Bright' (like Fast but adapted for bright images)
+%       Window (for Bright mode)
+%           64 (default)| 32-256
 %
 %
 % OUTPUTS:
@@ -60,7 +60,7 @@ ACSN_initialization;
 
 if strcmp(Mode,'Fast')
     ACSN_processing_parallel;
-elseif strcmp(Mode,'Slow')
+elseif strcmp(Mode,'Bright')
     ACSN_processing_parallel2;
 elseif size(I,3)>1
     ACSN_processing_video;

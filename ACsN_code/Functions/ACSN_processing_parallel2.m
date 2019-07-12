@@ -27,12 +27,7 @@ if Video(1) ~= 'n'
     if check < 30 || Video(1) == 'y'
         disp('Please wait... Additional 3D denoising required')
         
-        
-        if strcmp(Search,'Full')
-            sType = 2;
-        else
-            sType = 3;
-        end
+        sType = 2;
         
         if sum(size(img)>[32 32 20])  % [256 256 20]
             
@@ -62,10 +57,8 @@ end
 
 disp('Wrapping up...');
 
-
-
 parfor i = 1:size(img,3)
-    img(:,:,i) = Wrapping_up2(img(:,:,i),mean(sigma(i,:)),Blending);
+    img(:,:,i) = Wrapping_up2(img(:,:,i),sigma(i,:),alpha); % experimental feature non active by default
 end
 
 

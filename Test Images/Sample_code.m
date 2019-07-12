@@ -9,48 +9,32 @@ Lambda = .680;
 PxSize = .065;
 
 %%
-input1 = double(loadtiff('TIRF_9Hz.tif'));
+input1 = double(loadtiff('TIRF_01_100Hz.tif'));
 
-acsn_009  = ACSN(input1,NA,Lambda,PxSize,'Offset',offset,'Gain',gain,'Mode','Fast'); 
+acsn_100  = ACSN(input1,NA,Lambda,PxSize,'Offset',offset,'Gain',gain,'Mode','Bright'); 
 % The first time the runtime can be longer if the parallel pool is not already active
 
-figure;
-% Please note that imfuse rescales the pixel values between [0,255]
-imagesc(imfuse(input1(:,:,5),acsn_009(:,:,5),'montage'));
-colormap(blow); axis off; axis image;
-title('TIRF image of HeLa microtubules recorded at 9 Hz');
-
-figure;
-imagesc(imfuse(std(input1,[],3),std(acsn_009,[],3),'montage','Scaling','joint'));
-colormap(jet); axis off; axis image;
-title('TIRF image of HeLa microtubules recorded at 9 Hz - pixel fluctuation');
-
-%%
-input2 = double(loadtiff('TIRF_100Hz.tif'));
-
-acsn_100  = ACSN(input2,NA,Lambda,PxSize,'Offset',offset,'Gain',gain,'Mode','Slow'); 
-
 figure; 
-imagesc(imfuse(input2(:,:,100),acsn_100(:,:,100),'montage'));
+imagesc(imfuse(input1(:,:,100),acsn_100(:,:,100),'montage'));
 colormap(blow); axis off; axis image;
 title('TIRF image of HeLa microtubules recorded at 100 Hz');
 
 figure;
-imagesc(imfuse(std(input2,[],3),std(acsn_100,[],3),'montage','Scaling','joint'));
+imagesc(imfuse(std(input1,[],3),std(acsn_100,[],3),'montage','Scaling','joint'));
 colormap(jet); axis off; axis image;
 title('TIRF image of HeLa microtubules recorded at 100 Hz - pixel fluctuation');
 
 %%
-input3 = double(loadtiff('TIRF_200Hz.tif'));
+input2 = double(loadtiff('TIRF_01_200Hz.tif'));
 
-acsn_200  = ACSN(input3,NA,Lambda,PxSize,'Offset',offset,'Gain',gain,'Mode','Fast'); 
+acsn_200  = ACSN(input2,NA,Lambda,PxSize,'Offset',offset,'Gain',gain); 
 
 figure; 
-imagesc(imfuse(input3(:,:,1),acsn_200(:,:,1),'montage'));
+imagesc(imfuse(input2(:,:,1),acsn_200(:,:,1),'montage'));
 colormap(blow); axis off; axis image;
 title('TIRF image of HeLa microtubules recorded at 200 Hz');
 
 figure;
-imagesc(imfuse(std(input3,[],3),std(acsn_200,[],3),'montage','Scaling','joint'));
+imagesc(imfuse(std(input2,[],3),std(acsn_200,[],3),'montage','Scaling','joint'));
 colormap(jet); axis off; axis image;
 title('TIRF image of HeLa microtubules recorded at 200 Hz - pixel fluctuation');
