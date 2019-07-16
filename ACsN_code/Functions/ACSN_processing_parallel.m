@@ -31,6 +31,7 @@ if Video(1) ~= 'n'
         psd = mean(sigma).*ones(8);
         
         sType = 2;
+      
         
         if sum(size(img)>[256 256 20])  % [256 256 20]
             
@@ -51,6 +52,7 @@ if Video(1) ~= 'n'
             
         end
         
+                
         disp('Wrapping up...');
         
         parfor i = 1:size(img,3)

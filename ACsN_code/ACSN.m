@@ -25,7 +25,7 @@
 %           0 | 1 (default)
 %       Mode
 %           'Normal' | 'Fast' (default) | 'Bright' (like Fast but adapted for bright images)
-%       Window (for Bright mode)
+%       Window 
 %           64 (default)| 32-256
 %
 %

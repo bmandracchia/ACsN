@@ -9,7 +9,7 @@ Lambda = .680;
 PxSize = .065;
 
 %%
-raw = double(loadtiff('TIRF_02_200Hz.tif'));
+raw = double(loadtiff('TIRF_01_100Hz.tif'));
 
 acsn  = ACSN(raw,NA,Lambda,PxSize,'Offset',offset,'Gain',gain); 
 % The first time the runtime can be longer if the parallel pool is not already active
