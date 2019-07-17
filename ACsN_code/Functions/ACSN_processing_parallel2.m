@@ -3,11 +3,10 @@ PoolStart;
 
 disp('Processing...');
 
-parfor frame = 1:size(I,3)
+for frame = 1:size(I,3)
     
     [img(:,:,frame), sigma(frame,:),I1(:,:,frame)] = ACSN_core2(I(:,:,frame),NA,Lambda,PixelSize,Gain,Offset,Window,Hotspot,Level,Mode,SaveFileName);
-    
-    
+        
 end
 
 

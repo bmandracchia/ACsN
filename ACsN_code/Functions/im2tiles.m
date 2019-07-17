@@ -1,4 +1,4 @@
-function A = im2tiles2(a,varargin)
+function A = im2tiles(a,varargin)
 
 Nx = 128;
 Ny = 128;
