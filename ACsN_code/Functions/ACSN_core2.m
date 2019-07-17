@@ -23,9 +23,10 @@ R1 = min(R,size(I0,1)/2);
 size_y = min(window,size(I,1));
 size_x = min(window,size(I,2));
 size_z = 1;
+overlap = 5;
 
-Tiles = im2tiles(I0,size_x,size_y,size_z);
-Tiles_high = im2tiles(high0,size_x,size_y,size_z);
+Tiles = im2tiles(I0,overlap,size_x,size_y,size_z);
+Tiles_high = im2tiles(high0,overlap,size_x,size_y,size_z);
 
 for j = 1:numel(Tiles)
     
@@ -47,7 +48,7 @@ for j = 1:numel(Tiles)
     [curve] = fit(bins',Values',ft);
     
     a = curve.a1;
-    w = 1;      %1.5;
+    w = 1.5;
     sigma(j) = w*ratio*a; %#ok<*AGROW,SAGROW>
     
     
@@ -141,7 +142,9 @@ for j = 1:numel(Tiles)
     
 end
 
-img = cell2mat(Tiles);
+% img = cell2mat(Tiles);
+img = tiles2im(Tiles,overlap);
+
 %%
 % Save image (if mode == 'Save')
 if strcmp(Mode,'Save')

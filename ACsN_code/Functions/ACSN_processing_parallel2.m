@@ -11,29 +11,59 @@ parfor frame = 1:size(I,3)
 end
 
 
-disp('Please wait... Additional 3D denoising required')
-
-sType = 2;
-
-size_y = min(Window,size(img,1));
-size_x = min(Window,size(img,2));
-size_z = min(100,size(img,3));
-
-Tiles = im2tiles(img,size_x,size_y,size_z);
-parfor idx = 1:numel(Tiles)
+if Video(1) ~= 'n'
     
-    psd = mean(sigma(:,idx)).*ones(8);
+    nf = 5;
+    check = zeros(1,size(img,3)-nf);
     
-    Tiles{idx} = Video_filtering(Tiles{idx},psd,psd,'dct',0,1,sType,'np',0);
+    if Video(1) ~= 'y'
+        for ii = 1:size(img,3)-nf
+            check(ii) = psnr(img(:,:,ii),mean(img(:,:,ii:ii+nf),3),max(max(img(:,:,ii))));
+        end
+    end
     
-end
-img = cell2mat(Tiles);
-clear Tiles;
-
-disp('Wrapping up...');
-
-parfor i = 1:size(img,3)
-    img(:,:,i) = Wrapping_up2(img(:,:,i),sigma(i,:),alpha);
+    check = mean(check);
+    %     disp(check);
+    
+    if check < 50 || Video(1) == 'y'
+        disp('Please wait... Additional 3D denoising required')
+        
+        sType = 2;
+        
+        if sum(size(img)>[32 32 20])  % [256 256 20]
+            
+            size_y = min(Window,size(img,1));
+            size_x = min(Window,size(img,2));
+            size_z = min(100,size(img,3));
+            overlap = 5;
+            
+            Tiles = im2tiles(img,overlap,size_x,size_y,size_z);
+            parfor idx = 1:numel(Tiles)
+                
+                psd = mean(sigma(:,idx)).*ones(8);
+                
+                Tiles{idx} = Video_filtering_t(Tiles{idx},psd,psd,'dct',0,1,sType,'np',0);
+                
+            end
+            img = tiles2im(Tiles,overlap);
+            clear Tiles;
+            
+        else
+            
+            img = Video_filtering_t(img,psd,psd,'dct',0,1,sType,'np',0);
+            
+        end
+        
+        parfor i = 1:size(img,3)
+            M1 = max(max(img(:,:,i)));
+            M2 = min(min(img(:,:,i)));
+            beta = mean(sigma).*alpha;
+            img(:,:,i) = (img(:,:,i) - M2)./(M1 -M2);
+            img(:,:,i) = Video_filtering_xy(img(:,:,i),beta);
+            img(:,:,i) = (img(:,:,i)).*(M1-M2)+ M2;
+        end
+        
+    end
 end
 
 
