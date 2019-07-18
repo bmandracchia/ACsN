@@ -34,11 +34,16 @@ reminder_y = rem(size(a,1),Ny);
 dimyDist = Ny*ones(1,ny);
 
 if reminder_y
-    dimyDist = cat(2,dimyDist,reminder_y);
+    if reminder_y<=overlap
+        dimyDist(end) = dimyDist(end) + reminder_y;
+    else
+        dimyDist = cat(2,dimyDist,reminder_y);
+    end
 end
 
 nx = floor(size(a,2)/Nx);
 reminder_x = rem(size(a,2),Nx);
+
 % if reminder_x < 64 && reminder_x > 0
 %     warning('Warning: some images size is too small! Consider changing Nx');
 % end
@@ -46,7 +51,11 @@ reminder_x = rem(size(a,2),Nx);
 dimxDist = Nx*ones(1,nx);
 
 if reminder_x
-    dimxDist = cat(2,dimxDist,reminder_x);
+    if reminder_x<=overlap
+        dimxDist(end) = dimxDist(end) + reminder_x;
+    else
+        dimxDist = cat(2,dimxDist,reminder_x);
+    end
 end
 
 if overlap == 0
