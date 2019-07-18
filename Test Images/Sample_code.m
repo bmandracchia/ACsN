@@ -28,4 +28,3 @@ imagesc(imfuse(raw(:,:,1),acsn(:,:,1),'montage'));
 colormap(blow); axis off; axis image;
 title('TIRF image of HeLa microtubules');
 
-
