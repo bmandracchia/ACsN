@@ -12,10 +12,28 @@ ratio = sqrt(R2/abs(R-R2));
 I1 = (I-Offset)./Gain;
 I1(I1<=0) = 1e-6;
 
-% Fourier filter
+%% Remove hot spots
+if Hotspot==1
+    
+    % Fourier filter
+    R1 = min(R,size(I1,1)/2);
+    [~,high] = Gaussian_image_filtering(I1,'Step',R1);
+    % Median filter
+    I1b = padarray(I1,[2 2],'replicate');
+    I_med = medfilt2(I1b);
+    I_med(1:2,:) = [];
+    I_med(:,1:2) = [];
+    I_med(end-1:end,:) = [];
+    I_med(:,end-1:end) = [];
+    
+    I1(abs(high)>abs(mean2(high)+3.*std2(high))) = I_med(abs(high)>abs(mean2(high)+3.*std2(high)));
+    
+    I1(I1<=0) = 1e-6;
+end
+
+%% Fourier filter 2
 R1 = min(R,size(I1,1)/2);
 [~,high] = Gaussian_image_filtering(I1,'Step',R1);
-
 
 %% Evaluation of sigma
 [Values, BinCenters] = hist(high(:));
@@ -33,21 +51,6 @@ ft = fittype('a0*exp(-(1/2)*((x)/a1)^2)','options',fo);
 a = curve.a1;
 w = 1; 
 sigma = w*ratio*a; %#ok<SAGROW>
-
-
-%% Remove hot spots
-if Hotspot==1
-    I1b = padarray(I1,[2 2],'replicate');
-    I_med = medfilt2(I1b);
-    I_med(1:2,:) = [];
-    I_med(:,1:2) = [];
-    I_med(end-1:end,:) = [];
-    I_med(:,end-1:end) = [];
-    
-    I1(abs(high)>abs(mean2(high)+3.*std2(high))) = I_med(abs(high)>abs(mean2(high)+3.*std2(high)));
-    %     check0(abs(high)>abs(mean2(high)+3.*std2(high))) = 1;
-    I1(I1<=0) = 1e-6;
-end
 
 %% normalization
 M1 = max(max(I1));
