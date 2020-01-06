@@ -61,9 +61,9 @@ To run ACsN from ImageJ/Fiji follow these steps:
 The installation on a recommended computer should take less than 3 seconds.
 
 ### Citation
-Please, cite our paper on [Nature Communication].
+Please, cite our paper on [Nature Communications].
 
 Mandracchia, B., Hua, X., Guo, C. et al. Fast and accurate sCMOS noise correction for fluorescence microscopy. Nat Commun 11, 94 (2020) doi:10.1038/s41467-019-13841-8
 
 [ImageJ-MATLAB]: https://imagej.net/MATLAB_Scripting#Prerequisites
-[Nature Communication]: https://www.nature.com/articles/s41467-019-13841-8
+[Nature Communications]: https://www.nature.com/articles/s41467-019-13841-8
