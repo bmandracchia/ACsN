@@ -1,5 +1,4 @@
-function [img, sigma,I0] = ACSN_core2(I,NA,Lambda,PixelSize,Gain,Offset,window,Hotspot,Level,Mode,SaveFileName) %#ok<INUSL>
-
+function [img, sigma,I0] = ACSN_core2(I,NA,Lambda,PixelSize,Gain,Offset,window,Hotspot) 
 
 % OTF radius
 R = 2*NA/Lambda*PixelSize*size(I,1);
@@ -80,22 +79,12 @@ parfor j = 1:numel(Tiles)
     end
     
     
-    [~, img0] = Sparse_filtering([],I2,sigma(j),'np');
+    img0 = Sparse_filtering(I2,sigma(j));
     
     Tiles{j} = (img0).*(M1-M2)+ M2;
     
 end
 
 img = tiles2im(Tiles,overlap);
-
-%%
-% Save image (if mode == 'Save')
-if strcmp(Mode,'Save')
-    options.append = true;
-    options.message = false;
-    options.big = false;
-    
-    saveastiff(uint16(img),SaveFileName,options);
-end
 
 end

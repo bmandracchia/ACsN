@@ -1,5 +1,4 @@
-function [img, sigma,I1] = ACSN_core(I,NA,Lambda,PixelSize,Gain,Offset,Hotspot,Level,Mode,SaveFileName) %#ok<INUSL>
-
+function [img, sigma,I1] = ACSN_core(I,NA,Lambda,PixelSize,Gain,Offset,Hotspot)
 
 % OTF radius
 R = 2*NA/Lambda*PixelSize*size(I,1);
@@ -49,7 +48,7 @@ ft = fittype('a0*exp(-(1/2)*((x)/a1)^2)','options',fo);
 [curve] = fit(bins',Values',ft);
 
 a = curve.a1;
-w = 1; 
+w = 1.25; % 1
 sigma = w*ratio*a; 
 
 %% normalization
@@ -64,21 +63,6 @@ if (M1-M2)>255
     sigma = sigma/(M1-M2)*255;
 end
 
-
-[~, img0] = Sparse_filtering([],I2,sigma,'np');
-
-img = (img0).*(M1-M2)+ M2;
-
-
-
-%%
-% Save image (if mode == 'Save')
-if strcmp(Mode,'Save')
-    options.append = true;
-    options.message = false;
-    options.big = false;
-    
-    saveastiff(uint16(img),SaveFileName,options);
-end
+img = Sparse_filtering(I2,sigma).*(M1-M2)+ M2;
 
 end

@@ -11,14 +11,14 @@ if ischar(I)
 end
 
 % Default parameters
-default = {1,1,1,0,'Fast',[ 'ACSN_' datestr(now,'yyyymmdd_HHMMSS') '.tif'],'auto',64,0.5,'no'};
+default = {1,1,1,0,'Fast',[ 'ACSN_' datestr(now,'yyyymmdd_HHMMSS') '.tif'],'auto',64,0.25,'no'};
 
 Gain = default{1};
 Offset = default{2};
 Hotspot = default{3};
 Level = default{4};
 Mode = default{5};
-SaveFileName = default{6}; % experimental
+SaveFileName = default{6}; % not implemented yet
 Video = default{7};
 Window = default{8};
 alpha = default{9};    % experimental
@@ -48,7 +48,6 @@ for idx = 1:2:length(varargin)
         case 'Alpha'
             alpha = varargin{idx+1};
             alpha = max(0.1,alpha);
-            
         case 'QualityMap'
             QM = varargin{idx+1};
     end
