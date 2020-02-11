@@ -33,11 +33,11 @@ CPU: 6+ cores, 3.2+ GHz/core.
 ### Software Requirements ###
 MATLAB 2014b+ 
 
-MATLAB 2018a+ (Graphic interface)
+MATLAB 2018a+ (only for Graphic interface)
 
 MATLAB "Curve Fitting" Toolbox
 
-Windows OS 7+
+Windows OS 64 bit, Linux 64 bit or Mac OS X 64 bit
 
 ## Install ##
 ### Graphic Interface ###
