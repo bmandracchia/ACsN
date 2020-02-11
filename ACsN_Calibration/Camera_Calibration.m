@@ -9,8 +9,8 @@
 % specific information about your device.
 %
 % [1] Huang, F., Hartwich, T., Rivera-Molina, F. et al. Video-rate
-%     nanoscopy using sCMOS camera–specific single-molecule localization
-%     algorithms. Nat Methods 10, 653–658 (2013).
+%     nanoscopy using sCMOS cameraâ€“specific single-molecule localization
+%     algorithms. Nat Methods 10, 653â€“658 (2013).
 %     https://doi.org/10.1038/nmeth.2488
 %
 % [2] James R. Janesick, Photon Transfer, SPIE (2007)
@@ -49,8 +49,8 @@ save('Camera_Calibration','Offset','Variance');
 
 %% Gain calibration
 % Here the code assumes that the data for gain calibration have been saved
-% in a different folder for each different illumination intensity and in
-% tiff files begin with 'Gain'. However, this can be changed by modifying
+% in different folders, one for each different illumination intensity and in
+% .tiff files beginning with 'Gain'. However, this can be changed by modifying
 % the argument of the dir function.
     
 % N is the number of light levels used for gain calibration
