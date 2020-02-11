@@ -37,8 +37,8 @@ else
     for i = 1:L
         disp(['Loading ', fullfile(path,D(i).name)]);
         im = double(loadtiff(fullfile(path,D(i).name)));
-        Offset(:,i) = mean(im,3);
-        Variance(:,i) = var(im,[],3);
+        Offset(:,:,i) = mean(im,3);
+        Variance(:,:,i) = var(im,[],3);
     end
 end
 
