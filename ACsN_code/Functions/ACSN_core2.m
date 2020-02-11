@@ -65,7 +65,7 @@ parfor j = 1:numel(Tiles)
     
     a = curve.a1;
     w = 1.5;
-    sigma(j) = w*ratio*a; %#ok<*AGROW,SAGROW>
+    sigma(j) = w*ratio*a; %#ok<*AGROW>
     
     %% normalization
     M1 = max(max(I1));

@@ -36,7 +36,7 @@ R1 = min(R,size(I1,1)/2);
 [~,high] = Gaussian_image_filtering(I1,'Step',R1);
 
 %% Evaluation of sigma
-[Values, BinCenters] = hist(high(:));
+[Values, BinCenters] = hist(high(:)); %#ok<HIST>
 bins = BinCenters;
 
 [~, first_min] = min(Values);
@@ -50,7 +50,7 @@ ft = fittype('a0*exp(-(1/2)*((x)/a1)^2)','options',fo);
 
 a = curve.a1;
 w = 1; 
-sigma = w*ratio*a; %#ok<SAGROW>
+sigma = w*ratio*a; 
 
 %% normalization
 M1 = max(max(I1));

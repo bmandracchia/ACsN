@@ -18,7 +18,6 @@
 % @ String(label="Parallel CPU", choices={"yes", "no"}, style="radioButtonHorizontal") ParChoice
 
 % offset
-%disp(OffsetChoice)
 if OffsetChoice(1) == 'F'
     if OffsetChoice(8) == 'm'
         clear offset;
@@ -31,11 +30,9 @@ if OffsetChoice(1) == 'F'
 else
     clear offset;
     offset = double(OffsetValue);
-    %disp(offset)
 end
 
 % gain
-%disp(GainChoice)
 if GainChoice(1) == 'F'
     if GainChoice(8) == 'm'
         clear gain;
@@ -48,16 +45,13 @@ if GainChoice(1) == 'F'
 else
     clear gain;
     gain = double(GainValue);
-    %disp(gain)
 end
 
 % parallel
-%disp(ParChoice)
 if ParChoice(1) == 'n'
     Mode = 'Normal';
 else
     Mode = 'Parallel';
-    %disp(parallel)
 end
 
 
