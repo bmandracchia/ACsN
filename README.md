@@ -31,22 +31,13 @@ RAM: 16+ GB;
 CPU: 6+ cores, 3.2+ GHz/core.
 
 ### Software Requirements ###
-MATLAB 2014b+ 
-
-MATLAB 2018a+ (only for Graphic interface)
+MATLAB 2018b+ 
 
 MATLAB "Curve Fitting" Toolbox
 
 Windows OS 64 bit, Linux 64 bit or Mac OS X 64 bit
 
 ## Install ##
-### Graphic Interface ###
-To run ACsN graphic interface:
-
- - Double-click the ACsN.mlappinstall file in the ACsN_matlab_app folder.
- - In MATLAB, go to App>My App and double-click on ACsN.
- - To test the program you can use the images provided in the Test Images folder. See the file Settings.txt for the aquisition parameters.
-
 ### MATLAB Command Line ###
 To run ACsN from MATLAB command line:
 
