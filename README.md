@@ -25,7 +25,7 @@ Mandracchia, B., Hua, X., Guo, C. et al. Fast and accurate sCMOS noise correctio
 
 ## System Requirements ##
 ### Hardware Requirements ###
-ACsN requires a standard computer with enough RAM to support MATLAB 2014b. For minimal performance, this will be a computer with about 2 GB of RAM. For optimal performance, we recomend the following specs:
+ACsN requires a standard computer with enough RAM to support MATLAB 2014b. For minimum performance, this will be a computer with about 2 GB of RAM. For optimal performance, we recomend the following specs:
 
 RAM: 16+ GB; 
 CPU: 6+ cores, 3.2+ GHz/core.
