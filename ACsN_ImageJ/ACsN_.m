@@ -56,7 +56,7 @@ end
 if ParChoice(1) == 'n'
     Mode = 'Normal';
 else
-    Mode = 'Parallel';
+    Mode = 'Fast';
     %disp(parallel)
 end
 
